@@ -1,0 +1,20 @@
+
+# Python
+.venv/
+*.pyc
+*.db
+
+# Divers
+.vscode/
+.DS_Store
+
+# Bloque TOUS les node_modules du projet
+**/node_modules/
+**/dist/
+
+# Bloque le cache de Python
+**/__pycache__/
+
+# Bloque les secrets
+apikey.env
+.env
