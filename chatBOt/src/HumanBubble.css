@@ -40,7 +40,42 @@
 
 .liste
 {
-
   list-style: none;
+}
+
+.AIMessage {
+  display: flex;
+  align-items: flex-start;
+  margin-top: 25px;
+  flex-direction: row-reverse; /* flips the whole row */
+}
+
+.aiProfile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-left: 5px;
+  height: 27px;
+  width: 27px;
+  color: rgb(255, 227, 151);
+  background: radial-gradient(circle,rgba(13, 13, 43, 1) 0%, rgba(49, 59, 153, 1) 100%);
+
+}
+
+.aiResponse {
+  max-width: 900px;
+  margin-left: 8px; /* switched from margin-right */
+  margin-top: 18px;
+  padding: 19px;
+  border-radius: 20px 0px 20px 10px; /* flipped from 0px 20px 10px 20px */
+  border-right: 2px rgb(19, 70, 163) solid; /* switched from border-left */
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  color: white;
+  font-family: roboto;
+  font-weight: 600;
+  background-color: #111118;
+
 
 }

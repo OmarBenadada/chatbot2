@@ -9,10 +9,10 @@ function App() {
     const [addingmessages, SetAddingmessages] = useState([]);
     const [user_input, setuser_input] = useState();
 
-    let isdone=true;
-    let i=0
+    let isdone = true;
+    let i = 0
 
-    const message={input:user_input}
+    const message = { input: user_input }
 
     let user_m = document.getElementsByClassName("growing-input");
 
@@ -21,31 +21,28 @@ function App() {
         SetAddingmessages(e => [...e, user_input])
         SetsendUserInput(true)
         fetchResAi()
-    
+
     }
 
-      const fetchResAi = async() => {
-        let res = await  fetch("http://localhost:8000/something", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify( message) })
+    const fetchResAi = async () => {
+        let res = await fetch("http://localhost:8000/something", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(message) })
         let decoder = res.body.pipeThrough(new TextDecoderStream());
-        let fullres= decoder.getReader();
+        let fullres = decoder.getReader();
 
-         while(true)
-            {
-                const {value,status}= await fullres.read();
-                if (value==undefined)
-                    {break}
-                console.log(value)
+        while (true) {
+            const { value, status } = await fullres.read();
+            if (value == undefined) { break }
+            console.log(value)
 
-                
-            }
-        
-            
-        
+
+        }
+
+
+
     }
 
-    const getting_user_input=(event)=>
-    {
-        let input=event.target.innerText;
+    const getting_user_input = (event) => {
+        let input = event.target.innerText;
         setuser_input(input);
     }
 
@@ -103,12 +100,17 @@ function App() {
 
                     {sendUserInput && <HumanBubble user_input={addingmessages} />}
 
+                    <div className='AIMessage'>
+                        <span className='aiProfile'>✶</span>
+                        <div className='aiResponse'>aiMessage</div>
+                    </div>
+
                 </div>
 
                 <div className='the_input_area'>
 
                     <div className='theborder'>
-                        <div className='growing-input ' contentEditable="true" onInput={ getting_user_input}></div>
+                        <div className='growing-input ' contentEditable="true" onInput={getting_user_input}></div>
                         <button className='sendbutton' onClick={user_affair} >➤</button>
                     </div>
                     <span className='info'>Enter to send · Shift+Enter for new line</span>
