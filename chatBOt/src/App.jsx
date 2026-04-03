@@ -2,25 +2,26 @@ import './HumanBubble.jsx'
 import './App.css'
 import HumanBubble from './HumanBubble.jsx'
 import { useState } from 'react'
+import AiBubble from './aiBubble.jsx'
 
 function App() {
 
     const [sendUserInput, SetsendUserInput] = useState(false)
     const [addingmessages, SetAddingmessages] = useState([]);
     const [user_input, setuser_input] = useState();
-
-    let isdone = true;
-    let i = 0
+    const [ai_output, setai_output] = useState(false);
+    const [ai_response, setai_response] = useState("");
 
     const message = { input: user_input }
 
-    let user_m = document.getElementsByClassName("growing-input");
+    let words;
 
     const user_affair = () => {
 
         SetAddingmessages(e => [...e, user_input])
         SetsendUserInput(true)
         fetchResAi()
+        
 
     }
 
@@ -31,21 +32,25 @@ function App() {
 
         while (true) {
             const { value, status } = await fullres.read();
+            setai_output(true)
+
+            if (value != undefined)
+
+                {
+                    setai_response(e=>e+value)
+
+                 console.log(value)}
+
             if (value == undefined) { break }
-            console.log(value)
-
-
-        }
-
-
-
+            
+                  
+         }
     }
 
     const getting_user_input = (event) => {
         let input = event.target.innerText;
         setuser_input(input);
     }
-
 
     return (
 
@@ -99,11 +104,7 @@ function App() {
                 <div className='theConvo'>
 
                     {sendUserInput && <HumanBubble user_input={addingmessages} />}
-
-                    <div className='AIMessage'>
-                        <span className='aiProfile'>✶</span>
-                        <div className='aiResponse'>aiMessage</div>
-                    </div>
+                    {ai_output && <AiBubble ai_response={ai_response} />}
 
                 </div>
 

@@ -41,7 +41,7 @@ async def Bridge_to_ai(sentence:user_input):
         client = AsyncOpenAI(api_key=mysecret_key)
 
         stream =await client.chat.completions.create(
-            model="gpt-4o", 
+            model="gpt-5.4", 
             messages=[{"role": "user", "content": sentence.input}],
             temperature=0.7,
             stream=True, 

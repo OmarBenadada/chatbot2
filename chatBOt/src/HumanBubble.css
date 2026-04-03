@@ -41,6 +41,7 @@
 .liste
 {
   list-style: none;
+  padding: 0px;
 }
 
 .AIMessage {
