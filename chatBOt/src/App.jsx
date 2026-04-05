@@ -9,19 +9,16 @@ function App() {
     const [sendUserInput, SetsendUserInput] = useState(false)
     const [addingmessages, SetAddingmessages] = useState([]);
     const [user_input, setuser_input] = useState();
-    const [ai_output, setai_output] = useState(false);
-    const [ai_response, setai_response] = useState("");
+    const [ai_response, setai_response] = useState([]);
 
     const message = { input: user_input }
 
-    let words;
 
-    const user_affair = () => {
+    const user_affair = async () => {
 
         SetAddingmessages(e => [...e, user_input])
         SetsendUserInput(true)
-        fetchResAi()
-        
+        await fetchResAi()
 
     }
 
@@ -30,24 +27,22 @@ function App() {
         let decoder = res.body.pipeThrough(new TextDecoderStream());
         let fullres = decoder.getReader();
 
-        while (true) {
-            const { value, status } = await fullres.read();
-            setai_output(true)
+        while (true) 
+        {
+            const { value, done } = await fullres.read();
 
-            if (value != undefined)
+            if (done)
+            {
+               
+                break
+            }
+            setai_response(e => [...e, value]);
 
-                {
-                    setai_response(e=>e+value)
-
-                 console.log(value)}
-
-            if (value == undefined) { break }
-            
-                  
-         }
+        }
     }
 
-    const getting_user_input = (event) => {
+    const getting_user_input = (event) => 
+    {
         let input = event.target.innerText;
         setuser_input(input);
     }
@@ -103,8 +98,8 @@ function App() {
 
                 <div className='theConvo'>
 
-                    {sendUserInput && <HumanBubble user_input={addingmessages} />}
-                    {ai_output && <AiBubble ai_response={ai_response} />}
+                   { sendUserInput && <HumanBubble user_input={addingmessages} ai_response={ai_response} />}
+
 
                 </div>
 
@@ -112,7 +107,7 @@ function App() {
 
                     <div className='theborder'>
                         <div className='growing-input ' contentEditable="true" onInput={getting_user_input}></div>
-                        <button className='sendbutton' onClick={user_affair} >➤</button>
+                        <button className='sendbutton' onClick={user_affair}  >➤</button>
                     </div>
                     <span className='info'>Enter to send · Shift+Enter for new line</span>
 

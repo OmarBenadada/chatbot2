@@ -5,6 +5,9 @@ body{
 
 }
 
+
+
+
 body::before {
     content: '';
     position: fixed;
@@ -20,7 +23,7 @@ body::before {
 .all
 {
   display: flex;
-  height: 100vh;
+   height: 100vh;
   display: grid;
   grid-template-columns: minmax(250px,auto) 1fr;
 
@@ -29,7 +32,7 @@ body::before {
 .Half {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  
   background-color: #0a0a0f;
 
 }
