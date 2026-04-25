@@ -9,20 +9,22 @@ function App() {
     const [sendUserInput, SetsendUserInput] = useState(false)
     const [addingmessages, SetAddingmessages] = useState([]);
     const [user_input, setuser_input] = useState();
-    const [ai_response, setai_response] = useState([]);
+    const [ai_response, setai_response] = useState({});
 
     const message = { input: user_input }
 
 
     const user_affair = async () => {
 
-        SetAddingmessages(e => [...e, user_input])
+        let ID = Date.now()
+        SetAddingmessages(e => [...e, { input: user_input, id: ID }])
         SetsendUserInput(true)
-        await fetchResAi()
+        await fetchResAi(ID)
+
 
     }
 
-    const fetchResAi = async () => {
+    const fetchResAi = async (ID) => {
         let res = await fetch("http://localhost:8000/something", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(message) })
         let decoder = res.body.pipeThrough(new TextDecoderStream());
         let fullres = decoder.getReader();
@@ -33,11 +35,10 @@ function App() {
 
             if (done)
             {
-               
                 break
             }
-            setai_response(e => [...e, value]);
-
+            setai_response(e => ({ ...e, [ID]: (e[ID] || "") + value }));
+            
         }
     }
 
@@ -98,7 +99,7 @@ function App() {
 
                 <div className='theConvo'>
 
-                   { sendUserInput && <HumanBubble user_input={addingmessages} ai_response={ai_response} />}
+                   {sendUserInput && <HumanBubble user_input={addingmessages} ai_response={ai_response} />}
 
 
                 </div>

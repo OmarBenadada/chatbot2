@@ -4,18 +4,14 @@ export default function AiBubble(props)
 
         return (
                 <>
-                <ul>
-                    {ai_response.map((ele,index)=>
-                        <li id={index}>
-                            <div className='AIMessage'>
-                                    <span className='aiProfile'>✶</span>
-                                    <div className='aiResponse'>{ele}</div>
-                            </div>
-                        </li>
-                    )}
-                </ul>
-                       
-                        
+                    <div className='AIMessage'>
+                        <span className='aiProfile'>✶</span>
+                        <div className='aiResponse'>
+                            {Object.entries(ai_response).map(([id, response]) => (
+                                <div key={id}>{response}</div>
+                            ))}
+                        </div>
+                    </div>
                 </>
                     
                 )
